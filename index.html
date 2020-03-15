@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardioid</title>
+</head>
+<body>
+  <script src='p5.min.js'></script>
+  <script>
+    const canvasWidth = 400;
+    const canvasHeight = 400; 
+    let N = 0;    
+    let factor = 2;
+    const r = canvasWidth/2;
+
+    function setup(){      
+      createCanvas(canvasWidth, canvasHeight);
+    }
+    function getVector(index){
+      let angle = map(index % N, 0, N, 0, PI*2);      
+      let v = p5.Vector.fromAngle(angle + PI);
+      v.mult(r);
+      return v;
+    }
+    function draw(){
+      //factor += 0.01;
+      N +=0.05;
+      background(0);
+      
+      translate(width/2, height/2);
+      stroke(255);
+      noFill();
+      circle(0, 0, r*2);
+      for(let i=0; i < N; i++){
+        let v = getVector(i);
+        fill(255);
+        circle(v.x, v.y, 8);
+      }
+      for (let i=0; i<N; i++){
+        let a = getVector(i);
+        let b = getVector(i * factor);
+        line(a.x, a.y, b.x, b.y);
+
+      }
+
+    }
+  </script>
+</body>
+</html>
